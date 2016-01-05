@@ -19,6 +19,15 @@ public class db_connector {
      * @param args the command line arguments
      */
     //  private static final Logger LOGGER = Logger.getLogger(db_connector.class);
+    // mysql> SHOW COLUMNS FROM entries;
+    // +------------+-------------+------+-----+---------+-------+
+    // | Field      | Type        | Null | Key | Default | Extra |
+    // +------------+-------------+------+-----+---------+-------+
+    // | word       | varchar(25) | NO   |     | NULL    |       |
+    // | wordtype   | varchar(20) | NO   |     | NULL    |       |
+    // | definition | text        | NO   |     | NULL    |       |
+    // +------------+-------------+------+-----+---------+-------+
+    
 
     public db_connector(String[] args) {
         // TODO code application logic here
