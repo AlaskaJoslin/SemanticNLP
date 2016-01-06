@@ -1,6 +1,6 @@
 package com.alaskajoslin.app;
 
-import com.alaskajoslin.mysql.*;
+import com.alaskajoslin.app.db.*;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -8,8 +8,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
+public class AppTest extends TestCase
 {
     /**
      * Create the test case
@@ -27,9 +26,9 @@ public class AppTest
     public static Test suite()
     {
 	TestSuite suite = new TestSuite();
-	suite.addTest(MySQLConnectionTest.newInstance());
+	//suite.addTest(MySQLConnectionTest.newInstance());
 	//suite.addTest(new AppTest("testApp"));
-        suite.run();
+        //suite.run();
 	return suite;
     }
 

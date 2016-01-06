@@ -1,6 +1,8 @@
+package com.alaskajoslin.app;
+
 //Import my code
-import db.*;
-import server.*;
+import com.alaskajoslin.app.db.*;
+import com.alaskajoslin.app.server.*;
 //Import server code
 import java.io.*;
 import java.util.*;

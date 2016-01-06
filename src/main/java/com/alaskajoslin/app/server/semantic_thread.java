@@ -1,4 +1,4 @@
-package server;
+package com.alaskajoslin.app.server;
 
 import java.net.*;
 

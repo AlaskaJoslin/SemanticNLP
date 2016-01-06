@@ -1,4 +1,4 @@
-package db;
+package com.alaskajoslin.app.db;
 
 /*
  * To change this template, choose Tools | Templates
@@ -17,10 +17,14 @@ import org.apache.logging.log4j.util.*;
  */
 public class db_connector {
 
-    /**
-     * @param args the command line arguments
-     */
     private static final Logger LOGGER = LogManager.getLogger();
+    private Connection con = null;
+    private Statement st = null;
+    private ResultSet rs = null;
+    private String url;
+    private String user;
+    private String password;
+
     // mysql> SHOW COLUMNS FROM entries;
     // +------------+-------------+------+-----+---------+-------+
     // | Field      | Type        | Null | Key | Default | Extra |
@@ -31,33 +35,46 @@ public class db_connector {
     // +------------+-------------+------+-----+---------+-------+
     
 
-    public db_connector(String[] args) {
+    public db_connector() {
         // TODO code application logic here
-        Connection con = null;
-        Statement st = null;
-        ResultSet rs = null;
         try {
 	    BufferedReader reader = new BufferedReader(new FileReader("/home/matthew/db_test_params.txt"));
-            String url = reader.readLine();
-            String query = reader.readLine();
-            String user = reader.readLine();
-            String password = reader.readLine();
-
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            url = reader.readLine();
+            user = reader.readLine();
+            password = reader.readLine();
+            
+	    Class.forName("com.mysql.jdbc.Driver").newInstance();
+	    
 	    System.out.println(url);
             System.out.println(user);
-            System.out.println(password);
-            con = DriverManager.getConnection(url,user,password);
-            st = con.createStatement();
-            rs = st.executeQuery(query);
-            System.out.println("Executed query");
-            System.out.println(rs);
-            con.close();
-            System.out.println("Connection closed");
+            System.out.println(password);    
 	} catch (Exception ex) {
 	    System.out.println(ex);
             LOGGER.log(Level.ERROR, ex.getMessage(), ex);
-        } finally {
+        }
+    }
+
+    public boolean connect()
+    {
+       try {
+            con = DriverManager.getConnection(url,user,password);
+            return true;
+       } catch (Exception ex) {
+            System.out.println(ex);
+            LOGGER.log(Level.ERROR, ex.getMessage(), ex);
+            return false; 
+       }
+    }
+    
+    public boolean runQuery(String query)
+    {
+       try {    
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+	    System.out.println("Executed query");
+            System.out.println(rs);
+            return true;
+       } catch (Exception ex) {
             try {
                 if (rs != null) {
                     rs.close();
@@ -65,12 +82,23 @@ public class db_connector {
                 if (st != null) {
                     st.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException ex) {
-                LOGGER.log(Level.WARN, ex.getMessage(), ex);
+            } catch (SQLException sqlex) {
+                LOGGER.log(Level.WARN, ex.getMessage(), sqlex);
             }
-        }
+	    return false;
+        } 
+    }
+    public boolean closeConnection()
+    {
+       try {
+            con.close();
+            System.out.println("Connection closed");
+            con = DriverManager.getConnection(url,user,password);
+            return true;
+       } catch (Exception ex) {
+            System.out.println(ex);
+            LOGGER.log(Level.ERROR, ex.getMessage(), ex);
+            return false; 
+       }
     }
 }
