@@ -4,18 +4,21 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
-import org.apache.log4j.Logger;
-import java.util.logging.*;
+import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.simple.*;
+import org.apache.logging.log4j.status.*;
+import org.apache.logging.log4j.util.*;
 
 public class client_connector {
-  private static final Logger LOGGER = Logger.getLogger(client_connector.class);
+  private static final Logger LOGGER = LogManager.getLogger();
   private static client_connector singleton = null;
   private final ServerSocket semantic_traffic;
   private final ExecutorService thread_pool;
 
   private client_connector(String[] args) throws IOException
   {
-    semantic_traffic = new ServerSocket(Integer.parseInt(args[0]));
+    //semantic_traffic = new ServerSocket(Integer.parseInt(args[0]));
+    semantic_traffic = new ServerSocket(800);
     thread_pool = Executors.newCachedThreadPool();
   }
 
