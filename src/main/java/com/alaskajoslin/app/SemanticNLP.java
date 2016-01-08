@@ -65,7 +65,7 @@ public class SemanticNLP extends HttpServlet {
   public static void main(String[] args) {
     try
     {
-      db_connector semantic_db = new db_connector(args);
+      db_connector semantic_db = new db_connector();
       client_connector.initialize(args);
       client_connector.getInstance().run();
       attachShutDownHook();

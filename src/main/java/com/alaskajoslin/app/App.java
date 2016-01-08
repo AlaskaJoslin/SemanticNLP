@@ -62,7 +62,7 @@ public class App extends HttpServlet {
    try
     {
       System.out.println("Hello World!");
-      db_connector semantic_db = new db_connector(args);
+      db_connector semantic_db = new db_connector();
       System.out.println("Finished Initializing DB");
       client_connector.initialize(args);
       client_connector.getInstance().run();
